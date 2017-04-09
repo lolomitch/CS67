@@ -1,83 +1,73 @@
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-@SuppressWarnings("serial")
-class Settings extends JPanel {
-	public static JSpinner hello;
-   enum FieldTitle {
-      NAME("Name"), SPEED("Speed"), STRENGTH("Strength");
-      private String title;
 
-      private FieldTitle(String title) {
-         this.title = title;
-      }
-
-      public String getTitle() {
-         return title;
-      }
-   };
-   private static final Insets WEST_INSETS = new Insets(5, 0, 5, 5);
-   private static final Insets EAST_INSETS = new Insets(5, 5, 5, 0);
-   private Map<FieldTitle, JTextField> fieldMap = new HashMap<FieldTitle, JTextField>();
-
-   public Settings() {
-      setLayout(new GridBagLayout());
-      setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createTitledBorder("Settings"),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-      //GridBagConstraints gbc;
-//      for (int i = 0; i < FieldTitle.values().length; i++) {
-//         FieldTitle fieldTitle = FieldTitle.values()[i];
-//         gbc = createGbc(0, i);
-//         add(new JLabel(fieldTitle.getTitle() + ":", JLabel.LEFT), gbc);
-//         gbc = createGbc(1, i);
-//         JTextField textField = new JTextField(10);
-//         add(textField, gbc);
-//
-//         fieldMap.put(fieldTitle, textField);
-//      }
-      this.hello = new JSpinner();
-		//this.hello = hello;
-      add(hello);
-      //hello.setEditor(new GrayEditor(hello));
-		JComponent field = ((JSpinner.DefaultEditor) hello.getEditor());
-		Dimension prefSize = field.getPreferredSize();
-	    prefSize = new Dimension(30, 30);
-	    field.setPreferredSize(prefSize);
-      hello.addChangeListener(new ChangeListener() {
-
-          @Override
-          public void stateChanged(ChangeEvent e) {
-              //System.out.println("value changed: " + hello.getValue());
-          }
-      });
-   }
-//   private GridBagConstraints createGbc(int x, int y) {
-//	      GridBagConstraints gbc = new GridBagConstraints();
-//	      gbc.gridx = x;
-//	      gbc.gridy = y;
-//	      gbc.gridwidth = 1;
-//	      gbc.gridheight = 1;
-//
-//	      gbc.anchor = (x == 0) ? GridBagConstraints.WEST : GridBagConstraints.EAST;
-//	      gbc.fill = (x == 0) ? GridBagConstraints.BOTH
-//	            : GridBagConstraints.HORIZONTAL;
-//
-//	      gbc.insets = (x == 0) ? WEST_INSETS : EAST_INSETS;
-//	      gbc.weightx = (x == 0) ? 0.1 : 1.0;
-//	      gbc.weighty = 1.0;
-//	      return gbc;
-//	   }
-
-	   public String getFieldText(FieldTitle fieldTitle) {
-	      return fieldMap.get(fieldTitle).getText();
-	   }
-
+public class Settings extends JPanel{
+	public static JSpinner target_width, amplitude;
+	
+	public Settings() {
+		GridLayout experimentLayout = new GridLayout(0,3);
+		experimentLayout.setVgap(5);
+		experimentLayout.setHgap(5);
+		setLayout(experimentLayout);
+		JLabel label = new JLabel("Settings omg yay");
+		add(label);
+		
+		this.target_width = new JSpinner();
+		this.amplitude = new JSpinner();
+		
+		add(target_width);
+		add(amplitude);
+		
+		JComponent target_editor = ((JSpinner.DefaultEditor) target_width.getEditor());
+		Dimension pref_size = new Dimension(40, 40);
+	    //prefSize = new Dimension(40, 40);
+	    target_editor.setPreferredSize(pref_size);
+	    target_width.addChangeListener(new ChangeListener(){
+	    	public void stateChanged(ChangeEvent e) {}
+	    });
+	    
+	    JComponent amp_editor = ((JSpinner.DefaultEditor) amplitude.getEditor());
+		Dimension amp_pref_size = new Dimension(40, 40);
+	    //prefSize = new Dimension(40, 40);
+		amp_editor.setPreferredSize(amp_pref_size);
+		amplitude.addChangeListener(new ChangeListener(){
+	    	public void stateChanged(ChangeEvent e) {}
+	    });
 	}
+}
 
+// logic to see if amp is out of range - if all hits are false
+//int dist_s_top = start_y;
+//int dist_s_bottom = canvas_h - start_y;
+//int dist_s_left = start_x;
+//int dist_s_right = canvas_w - start_x;
+//
+//boolean hits_top = true;
+//boolean hits_bottom = true;
+//boolean hits_left = true;
+//boolean hits_right = true;
+//
+//double range_bottom = 0.0;
+//double range_top = 2.0 * Math.PI;
+//
+//
+//if(Double.isNaN(Math.asin((double)dist_s_top / (double) amp))) {
+//	hits_top = false;
+//}
+//if(Double.isNaN(Math.asin((double)dist_s_bottom / (double) amp))) {
+//	hits_bottom = false;
+//}
+//if(Double.isNaN(Math.asin((double)dist_s_left / (double) amp))) {
+//	hits_left = false;
+//}
+//if(Double.isNaN(Math.asin((double)dist_s_right / (double) amp))) {
+//	hits_right = false;
+//}
